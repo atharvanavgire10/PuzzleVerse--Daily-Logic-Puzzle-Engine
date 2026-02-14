@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  googleId  String?  @unique
+  provider  String
+  results   PuzzleResult[]
+  createdAt DateTime @default(now())
+}
+
+
+
+model PuzzleResult {
+  id        String   @id @default(cuid())
+  date      String
+  score     Int
+  attempts  Int
+  userId    String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
