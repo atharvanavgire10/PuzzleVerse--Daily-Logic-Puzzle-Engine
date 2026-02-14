@@ -1,111 +1,159 @@
-🧠 PuzzleVerse – Daily Logic Puzzle Engine
-PuzzleVerse is a fully-featured daily puzzle web application built with React and modern web technologies.
-It delivers a new deterministic puzzle every day, tracks user streaks, calculates performance-based scores, and supports both Google authentication and guest mode.
+# 🧠 PuzzleVerse – Daily Logic Puzzle Engine
 
-This project demonstrates advanced frontend architecture, client-side persistence, authentication, and gamified engagement systems.
+PuzzleVerse is a fully-featured **daily logic puzzle web application** built using modern frontend technologies.  
+It generates a deterministic puzzle every day, tracks user streaks, calculates performance-based scores, and supports both Google authentication and guest mode.
 
-✨ Core Features
+This project demonstrates advanced frontend architecture, client-side persistence, authentication, gamification systems, and performance optimization.
 
-🔐 Authentication
-Google Login (Firebase)
-Continue as Guest mode
-Persistent login session
-User-specific daily progress storage
+---
 
-🧩 Puzzle Engine
-5 Dynamic Puzzle Types:
-Number Grid
-Missing Number
-Odd One Out
-Word Scramble
-Logic Truth Evaluation
-Date-based deterministic seed generation
-Validator engine per puzzle type
-Client-side solution verification
+## ✨ Core Features
 
-📅 Daily Reset Mechanism
-Puzzle changes automatically based on date
-Supports development date override
-User progress resets per day
-Streak logic preserved across sessions
+### 🔐 Authentication
+- Google Login (Firebase Authentication)
+- Continue as Guest mode
+- Persistent login session
+- User-specific daily progress storage
 
-🔥 Streak System
-Tracks consecutive completed days
-Resets if a day is missed
-Stored using IndexedDB
-User-specific streak tracking
+---
 
-🎯 Scoring Algorithm
-Score calculated only on first correct submission:
+### 🧩 Puzzle Engine
+
+Supports **5 Dynamic Puzzle Types:**
+- Number Grid
+- Missing Number
+- Odd One Out
+- Word Scramble
+- Logic Truth Evaluation
+
+Features:
+- Date-based deterministic seed generation
+- Validator engine per puzzle type
+- Client-side solution verification
+- No server dependency for puzzle validation
+
+---
+
+### 📅 Daily Reset Mechanism
+- Puzzle changes automatically based on current date
+- Development date override support
+- User progress resets daily
+- Streak logic preserved across sessions
+
+---
+
+### 🔥 Streak System
+- Tracks consecutive completed days
+- Resets if a day is missed
+- Stored using IndexedDB
+- User-specific streak tracking
+
+---
+
+### 🎯 Scoring Algorithm
+
+Score is calculated **only on first correct submission**
 
 Factors:
-Time taken
-Number of attempts
-Hints used
-Encourages skill, speed, and consistency.
+- Time taken
+- Number of attempts
+- Hints used
 
-💡 Hint System
-Max 3 hints per puzzle
-Puzzle-type specific hints
-Stored per user per day
-No server dependency
+Designed to encourage:
+- Skill
+- Speed
+- Consistency
 
-💾 Client-Side Storage
-IndexedDB for:
-Progress
-Hints
-Streak data
-Fully offline-capable architecture
+---
 
-🎨 UI & UX
-Framer Motion animations
-Smooth puzzle transitions
-Responsive design (mobile-first)
-Animated feedback
-Clean modern interface
+### 💡 Hint System
+- Maximum 3 hints per puzzle
+- Puzzle-type specific hints
+- Stored per user per day
+- Fully client-side implementation
 
-⚡ Performance Optimization
-Lazy-loaded components
-Code splitting
-Memoization
-Efficient state management
+---
 
-📦 Testing
-Vitest + React Testing Library
+### 💾 Client-Side Storage
+Uses IndexedDB for:
+- Progress
+- Hint usage
+- Streak data
+
+Fully offline-capable architecture.
+
+---
+
+### 🎨 UI & UX
+- Framer Motion animations
+- Smooth puzzle transitions
+- Responsive (mobile-first) design
+- Animated feedback system
+- Clean, modern interface
+
+---
+
+### ⚡ Performance Optimization
+- Lazy-loaded components
+- Code splitting
+- Memoization
+- Efficient state management
+
+---
+
+### 📦 Testing
+Tested with:
+- Vitest
+- React Testing Library
+
 High coverage across:
-Puzzle engine
-Hint system
-Score engine
-Daily logic
-Storage layer
+- Puzzle engine
+- Hint system
+- Score engine
+- Daily logic
+- Storage layer
 
-🛠 Tech Stack
-React
-Vite
-Firebase Authentication
-IndexedDB
-Framer Motion
-Vitest
-Tailwind CSS (optional styling layer)
-Modular Puzzle Engine Architecture
+---
 
-🧱 Architecture Highlights
-Deterministic daily puzzle generation using seeded randomness
-Fully client-managed scoring and validation
-Per-user per-day storage keys
-Clean separation of:
-Puzzle logic
-Storage layer
-UI layer
-Engagement systems
+## 🛠 Tech Stack
 
-🎯 Why This Project Is Strong
+- React
+- Vite
+- Firebase Authentication
+- IndexedDB
+- Framer Motion
+- Tailwind CSS (optional styling layer)
+- Vitest
+- Modular Puzzle Engine Architecture
+
+---
+
+## 🧱 Architecture Highlights
+
+- Deterministic daily puzzle generation using seeded randomness
+- Fully client-managed scoring and validation
+- Per-user, per-day storage keys
+- Clean separation of:
+  - Puzzle logic layer
+  - Storage layer
+  - UI layer
+  - Engagement systems
+
+---
+
+## 🎯 Why This Project Is Strong
 
 This project demonstrates:
-Advanced frontend architecture
-Scalable puzzle engine design
-Gamification systems
-Authentication integration
-Client-side database usage
-Performance optimization
-Production-ready structure
+
+- Advanced frontend architecture
+- Scalable puzzle engine design
+- Gamification systems
+- Authentication integration
+- Client-side database usage
+- Performance optimization
+- Production-ready structure
+
+
+## 👨‍💻 Author
+
+Built with ❤️ by Atharva
