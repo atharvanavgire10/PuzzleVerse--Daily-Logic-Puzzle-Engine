@@ -15,6 +15,7 @@ import { auth } from "./firebase";
 import {
   GoogleAuthProvider,
   signInWithPopup,
+  signInWithRedirect,
   signOut,
   onAuthStateChanged
 } from "firebase/auth";
@@ -56,7 +57,13 @@ function App() {
 
   const loginWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
-    await signInWithPopup(auth, provider);
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+
+  if (isMobile) {
+    await signInWithRedirect(auth, provider)
+  } else {
+    await signInWithPopup(auth, provider)
+  }
   };
 
   const continueAsGuest = () => {
