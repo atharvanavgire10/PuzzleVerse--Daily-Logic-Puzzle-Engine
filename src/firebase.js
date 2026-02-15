@@ -4,7 +4,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "A",
+  apiKey: "",
   authDomain: "",
   projectId: "",
   appId: ""
