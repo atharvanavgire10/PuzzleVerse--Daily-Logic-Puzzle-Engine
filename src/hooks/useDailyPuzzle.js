@@ -5,6 +5,8 @@ import { loadHints, saveHints } from "../storage/hintDB";
 import { saveCompletedDay } from "../storage/streakDB";
 import { calculateScore } from "../utils/scoreEngine";
 import { generateHintsForPuzzle } from "../utils/hintEngine";
+import { saveDailyActivity } from "../storage/saveDailyActivity";
+
 
 export function useDailyPuzzle(userId) {
   const [puzzle, setPuzzle] = useState(null);
@@ -124,6 +126,12 @@ export function useDailyPuzzle(userId) {
           user: userId,
           date: currentDate
         });
+
+        await saveDailyActivity({
+    score: updated.Score, // use the real score value
+    difficulty: puzzle?.difficulty || 1,
+    timeTaken: 30 // replace if you track time
+  });
       }
 
       await saveProgress(storageKey, updated);

@@ -24,6 +24,8 @@ import "./index.css";
 import HeatmapPage from "./pages/HeatmapPage"
 
 
+
+
 const HeatmapContainer = lazy(() =>
   import("./components/heatmap/HeatmapContainer")
 );
@@ -35,6 +37,7 @@ function App() {
   const [input, setInput] = useState("");
   const [result, setResult] = useState(null);
   const [celebrate, setCelebrate] = useState(false);
+  const [heatmapRefresh, setHeatmapRefresh] = useState(0);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(
@@ -114,45 +117,51 @@ function App() {
   };
 
   const submit = useCallback(async () => {
-  if (!puzzle || progress?.completed) return;
+    if (!puzzle || progress?.completed) return;
 
-  let answer = input.trim();
+    let answer = input.trim();
 
-  if (!answer) {
-    setResult("Answer cannot be empty!");
-    return;
-  }
-
-
-  if (
-    puzzle.type !== "WORD_SCRAMBLE" &&
-    puzzle.type !== "LOGIC_TRUTH"
-  ) {
-    if (!isNaN(answer)) {
-      answer = Number(answer);
+    if (!answer) {
+      setResult("Answer cannot be empty!");
+      return;
     }
-  }
 
-  if (puzzle.type === "LOGIC_TRUTH") {
-    answer = answer.toLowerCase() === "true";
-  }
 
-  try {
-    const isCorrect =
-      await validateAndSave(answer);
-
-    if (isCorrect) {
-      setResult("Correct!");
-      triggerCelebration();
-    } else {
-      setResult("Wrong!");
+    if (
+      puzzle.type !== "WORD_SCRAMBLE" &&
+      puzzle.type !== "LOGIC_TRUTH"
+    ) {
+      if (!isNaN(answer)) {
+        answer = Number(answer);
+      }
     }
-  } catch (err) {
-    console.error("Submit error:", err);
-  }
 
-  setInput("");
-}, [input, puzzle, progress, validateAndSave]);
+    if (puzzle.type === "LOGIC_TRUTH") {
+      answer = answer.toLowerCase() === "true";
+    }
+
+    try {
+      const isCorrect =
+        await validateAndSave(answer);
+
+      if (isCorrect) {
+        setResult("Correct!");
+        triggerCelebration();
+
+      
+
+
+        setHeatmapRefresh(prev => prev + 1);
+      }
+      else {
+        setResult("Wrong!");
+      }
+    } catch (err) {
+      console.error("Submit error:", err);
+    }
+
+    setInput("");
+  }, [input, puzzle, progress, validateAndSave]);
 
 
 
@@ -172,19 +181,19 @@ function App() {
           </p>
 
           <motion.button
-  whileHover={{ y: -1 }}
-  whileTap={{ scale: 0.97 }}
-  transition={{ type: "spring", stiffness: 260, damping: 18 }}
-  onClick={loginWithGoogle}
-  className="google-auth-btn"
->
-  <img
-    src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
-    alt="Google"
-    className="google-logo"
-  />
-  <span>Continue with Google</span>
-</motion.button>
+            whileHover={{ y: -1 }}
+            whileTap={{ scale: 0.97 }}
+            transition={{ type: "spring", stiffness: 260, damping: 18 }}
+            onClick={loginWithGoogle}
+            className="google-auth-btn"
+          >
+            <img
+              src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+              alt="Google"
+              className="google-logo"
+            />
+            <span>Continue with Google</span>
+          </motion.button>
 
 
           <motion.button
@@ -205,7 +214,7 @@ function App() {
 
   return (
     <div className="app-container space-y-10">
-<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <h2 className="text-xl font-semibold">
           Daily Puzzle
         </h2>
@@ -246,7 +255,7 @@ function App() {
                         : "#0ea5e9",
                     animationDelay:
                       Math.random() *
-                        0.5 +
+                      0.5 +
                       "s"
                   }}
                 />
@@ -266,15 +275,15 @@ function App() {
           />
 
           <button
-  className="button"
-  onClick={submit}
-  disabled={
-    progress?.completed ||
-    !input.trim()
-  }
->
-  Submit
-</button>
+            className="button"
+            onClick={submit}
+            disabled={
+              progress?.completed ||
+              !input.trim()
+            }
+          >
+            Submit
+          </button>
 
 
           <button
@@ -354,6 +363,7 @@ function App() {
             🔥 Streak Progress
           </h3>
           <HeatmapContainer
+            refreshKey={heatmapRefresh}
             userId={activeUserId}
           />
         </div>

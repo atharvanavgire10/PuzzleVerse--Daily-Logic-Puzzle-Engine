@@ -3,26 +3,35 @@ import { heatmapDB } from "../../storage/heatmapDB"
 import { HeatmapGrid } from "./HeatmapGrid"
 import { calculateStreak } from "../../storage/heatmapUtils"
 
-export default function HeatmapContainer() {
+export default function HeatmapContainer({ refreshKey }) {
   const [activity, setActivity] = useState({})
   const [streak, setStreak] = useState(0)
 
   useEffect(() => {
-    async function loadData() {
-      const db = await heatmapDB
-      const all = await db.getAll("dailyActivity")
+  async function loadData() {
+    const db = await heatmapDB
+    const all = await db.getAll("dailyActivity")
 
-      const map = {}
-      all.forEach(entry => {
-        map[entry.date] = entry
-      })
+    const map = {}
+    all.forEach(entry => {
+      map[entry.date] = entry
+    })
 
-      setActivity(map)
-      setStreak(calculateStreak(map))
-    }
+    setActivity(map)
+    setStreak(calculateStreak(map))
+  }
 
-    loadData()
-  }, [])
+  loadData()
+
+  // 🔥 Listen for updates
+  const handleUpdate = () => loadData()
+  window.addEventListener("heatmapUpdate", handleUpdate)
+
+  return () => {
+    window.removeEventListener("heatmapUpdate", handleUpdate)
+  }
+}, [])
+
 
   return (
   <div className="heatmap-wrapper">
