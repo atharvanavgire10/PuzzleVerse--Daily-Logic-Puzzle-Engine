@@ -3,14 +3,14 @@ import { heatmapDB } from "../../storage/heatmapDB"
 import { HeatmapGrid } from "./HeatmapGrid"
 import { calculateStreak } from "../../storage/heatmapUtils"
 
-export default function HeatmapContainer({ refreshKey }) {
+export default function HeatmapContainer({ userId }) {
   const [activity, setActivity] = useState({})
   const [streak, setStreak] = useState(0)
 
   useEffect(() => {
   async function loadData() {
     const db = await heatmapDB
-    const all = await db.getAll("dailyActivity")
+const all = await db.getAllFromIndex("dailyActivity", "userId", userId)
 
     const map = {}
     all.forEach(entry => {

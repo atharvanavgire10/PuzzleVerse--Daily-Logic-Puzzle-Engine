@@ -128,9 +128,10 @@ export function useDailyPuzzle(userId) {
         });
 
         await saveDailyActivity({
-    score: updated.Score, // use the real score value
-    difficulty: puzzle?.difficulty || 1,
-    timeTaken: 30 // replace if you track time
+    userId,
+  score: updated.score,
+  difficulty: puzzle?.difficulty || 1,
+  timeTaken: 30
   });
       }
 
